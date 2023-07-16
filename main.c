@@ -113,7 +113,11 @@ static int server()
     memset(&serverAddressFromUser, 0, sizeof(serverAddressFromUser));
     serverAddressFromUser.sin_family = AF_INET;
     serverAddressFromUser.sin_port = htons(s_serverBindingPortFromUser);
+#if 1
+    serverAddressFromUser.sin_addr.s_addr = INADDR_ANY; //custome need to open tunnel for any incomming address
+#else
     serverAddressFromUser.sin_addr.s_addr = inet_addr(s_serverBindingAddress);
+#endif
 
     //set up server address structure from machine
     struct sockaddr_in serverAddressFromMachine;
